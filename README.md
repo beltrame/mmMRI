@@ -5,6 +5,14 @@ How to open the client
 * Load unpacked extensions mmMRI/client
 * Open a new tab with your applications (click on the app with red dots)
 
+```bash
+git clone https://github.com/beltrame/mmMRI.git
+cd mmMRI/client
+npm install
+bower install
+grunt
+grunt appendSrcTags
+```
 
 How to run the server
 
