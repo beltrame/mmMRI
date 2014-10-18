@@ -8,7 +8,7 @@
     "author": "awesome people",
     "app": {
         "launch": {
-            "local_path": "app.html"
+            "local_path": "bower_components/brainbrowser/examples/index.html"
         }
     },
     "icons" : {
