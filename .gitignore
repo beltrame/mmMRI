@@ -17,8 +17,12 @@ npm-debug.log
 *.m~
 
 *.mex*
+
+#python files from pycharm
+__init__.py
+
 	
 slprj/
-.idea/
+.idea/*
 client/bower_components/
 client/app.write.js
