@@ -126,4 +126,5 @@ app.use(function(err, req, res, next){
 });
 
 // Start the server on port 8002
-app.listen(8002);
+app.listen(8011);
+console.log("Open your browser to localhost:8011");
