@@ -8,8 +8,15 @@ How to open the client
 ```bash
 git clone https://github.com/beltrame/mmMRI.git
 cd mmMRI/client
+
 npm install
 bower install
+
+cd client/bower_components/brainbrowser/examples/color-maps
+gunzip *.gz
+cd ../models
+gunzip *.gz
+
 grunt
 grunt appendSrcTags
 ```
