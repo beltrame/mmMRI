@@ -1,31 +1,37 @@
-import numpy as np
+import numpy.ma as ma
 import nibabel
 import os
 import glob
 
-DataDir = '/home/wang/Downloads/BrainHack'
-file = '101_SH_DWI_FA_reg2STD.nii.gz'
+DataDir = '/home/wang/Downloads/BrainHack/'
+maskFile = DataDir + 'auditorynetwork_mask.nii'
 
 if False:
     DataDir = '/Users/jason/Desktop/BrainHack/brainimages'
     file = '113_NZ_DWI_FA_reg2STD.nii'
-    img = nibabel.load(os.path.join(DataDir,file))
+    img = nibabel.load(os.path.join(DataDir, file))
     data = img.get_data()
 
-MaskDir = DataDir
-# MaskDir = '/Users/jason/Desktop/BrainHack/masks'
-MaskFile = 'auditorynetwork_mask.nii.gz'
-MaskImg = nibabel.load(os.path.join(MaskDir,MaskFile))
-MaskData = MaskImg.get_data()
+def getMask(dataFile, maskFile):
+    #MaskDir = DataDir
+    #MaskDir = '/Users/jason/Desktop/BrainHack/masks'
+    #MaskFile = 'auditorynetwork_mask.nii'
+    #MaskImg = nibabel.load(os.path.join(MaskDir,MaskFile))
+    #MaskData = MaskImg.get_data()
 
-MaskIndices = MaskData.nonzero()
-NVoxelsMask = MaskData[MaskIndices].size
+    #MaskIndices = MaskData.nonzero()
+    #NVoxelsMask = MaskData[MaskIndices].size
 
-for datatType in ['*VBM_GM*' '*DWI_FA*' '*DWI_MD*' '*DWI_S0' '*MTR*']:
-    pass
+    maskFile = nibabel.load(maskFile).get_data()
+    # dataFile[maskFile == 0] = 0  # For maintaining 3D array integrity
+    dataFile = dataFile[maskFile == 1]  # For generating a vector
+    return dataFile
 
-for i in glob.glob('*DWI_FA*'):
-    img = nibabel.load(os.path.join(DataDir,i))
-    data = img.get_data()
+for dataType in ['*VBM_GM*.nii', '*DWI_FA*.nii', '*DWI_MD*.nii', '*DWI_S0*.nii', '*MTR*.nii']:
+    for imageFile in glob.glob(DataDir + dataType):
+        #img = nibabel.load(os.path.join(DataDir,imageFile))
+        data = nibabel.load(imageFile).get_data()
+        data_masked = getMask(data, maskFile)
 
-data = data[MaskIndices]
+#data = data[MaskIndices]
+pass
