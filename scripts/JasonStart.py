@@ -27,11 +27,13 @@ def getMask(dataFile, maskFile):
     dataFile = dataFile[maskFile == 1]  # For generating a vector
     return dataFile
 
+matrix = {}
 for dataType in ['*VBM_GM*.nii', '*DWI_FA*.nii', '*DWI_MD*.nii', '*DWI_S0*.nii', '*MTR*.nii']:
     for imageFile in glob.glob(DataDir + dataType):
         #img = nibabel.load(os.path.join(DataDir,imageFile))
+        subjectID = imageFile.split('/')[-1][0:3]
         data = nibabel.load(imageFile).get_data()
         data_masked = getMask(data, maskFile)
+        matrix[subjectID] = data_masked
 
-#data = data[MaskIndices]
 pass
