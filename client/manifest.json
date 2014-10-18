@@ -1,8 +1,8 @@
 {
     "manifest_version": 2,
-    "name": "McBenchViz",
+    "name": "mmMRI",
     "version": "0.0.0",
-    "description": "Dashboard for exploring and visualising performance characteristics of multi configuration MatLab compiler output",
+    "description": "Dashboard for exploring and visualising brain scans from diverse sources",
 
     "content_security_policy": "script-src 'self' 'unsafe-eval' https://google-code-prettify.googlecode.com; object-src 'self'",
     "author": "awesome people",

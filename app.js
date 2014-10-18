@@ -22,7 +22,9 @@ var express = require("express")
  , app = express()
  , swagger = require("swagger-node-express").createNew(app);
 
-var petResources = require("./resources.js");
+var models = require("./lib/models.js");
+
+var petResources = require("./lib/resources.js");
 
 var corsOptions = {
   credentials: true,
@@ -61,7 +63,6 @@ swagger.addValidator(
   }
 );
 
-var models = require("./models.js");
 console.log("loading petResources.findByTags", petResources.findByTags);
 
 // Add models and methods to swagger
