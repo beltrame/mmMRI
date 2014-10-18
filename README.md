@@ -1,4 +1,27 @@
+How to open the client
+
+* In chrome: open Tools >> Extensions
+* Check developer mode
+* Load unpacked extensions mmMRI/client
+* Open a new tab with your applications (click on the app with red dots)
+
+
+How to run the server
+
+```bash
+git clone https://github.com/beltrame/mmMRI.git
+cd mmMRI
+npm install
+node app.js
+
+```
+
+
+
+
+
 Brainhack 2014 preparation: Structural MRI
+
 Project general purpose: many cognitive neuroscience labs collect multiple structural magnetic resonance images, and then use them in separate, parallel analyses. This ignores potentially interesting information in the relationships between information available from different imaging modalities in the same brain area. We would like to explore the possibility of combining these data in scientifically useful ways, specifically for small sample sizes with subtle differences that cognitive neuroscientists often deal with. This is in contrast to larger multimodal imaging efforts, which often focus on clinical vs. healthy populations for the purposes of disease state identification or prognosis (in these cases researchers are usually looking to classify a brain in to one of several groups that consist of very large number of subjects, and the differences between groups can be much larger). 
 Although this is open to changing/warping by team members, our current focus is to increase the sensitivity of between group and regression-type analyses by combining information across several imaging modalities. 
 The two main sorts of research questions are: 

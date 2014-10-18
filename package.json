@@ -4,11 +4,9 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "cors": "2.4.2",
     "express": "3.x",
-    "murmurhash": "0.0.2",
-    "mysql": "2.0.0-alpha8",
-    "ssh2": "0.2.11",
-    "q": "0.9.6",
-    "sequelize": "1.5.0"
+    "q": "1.0.1",
+    "swagger-node-express": "git://github.com/cesine/swagger-node-express.git"
   }
 }
