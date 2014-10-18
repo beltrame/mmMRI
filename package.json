@@ -1,5 +1,5 @@
 {
-  "name": "mcbenchviz",
+  "name": "mmMRI",
   "description": "Visualize performance results of benchmarks.",
   "version": "0.0.1",
   "private": true,

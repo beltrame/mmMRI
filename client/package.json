@@ -1,5 +1,5 @@
 {
-  "name": "mcbenchviz-client",
+  "name": "mmmri-client",
   "description": "Visualize performance results of benchmarks.",
   "version": "0.0.1",
   "devDependencies": {

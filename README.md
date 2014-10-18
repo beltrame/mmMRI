@@ -1,6 +1,11 @@
-mcbenchviz
-==========
+mmmMRI
+======
 
-McBenchViz is a Google Chrome app for interactive exploration of performance characteristics of complex software configurations. It is initially intended for peformance evaluation of a family of high-performance compilers for MATLAB that are being developed at the McGill Compilation Lab, McLab.
 
-The current version connects to McBenchJS, a node server that automates running performance experiments on multiple configurations of software and hardware and that provides a unified interface to past results.
+
+
+mmmMRI is a javascript app for interactive exploration of multi modal brain scans. It is initially intended for as a prototype of what we can do understand and explore diverse information for brain 3D interactive visualizations.
+
+The current version connects to a node server that automates running experiments on multiple configurations of data in Python, MatLab, R, Bash, C etc.
+
+
