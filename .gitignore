@@ -22,3 +22,5 @@ slprj/
 .idea/
 client/bower_components/
 client/app.write.js
+
+*~
