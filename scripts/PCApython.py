@@ -12,5 +12,5 @@ def CalculateScalingFactorsPCA(data):
     V = np.dot(data.transpose(),U)
     # Calculate the individual expression of the eigenimages
     T = np.dot(data,V)
-    return T
+    return T,V
 
