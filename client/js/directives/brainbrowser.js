@@ -1,5 +1,5 @@
+/* globals angular, console, BrainBrowser, window, document, $, Image, THREE */
 "use strict";
-/* globals FieldDB */
 
 
 /**
@@ -12,8 +12,8 @@ angular.module("app").directive("brainbrowser", function() {
 
   var controller = function($scope, $timeout) {
     console.log("Loading brain browser");
-    
 
+    
   };
   controller.$inject = ["$scope", "$location", "$timeout"];
 
@@ -32,7 +32,7 @@ angular.module("app").directive("brainbrowser", function() {
 
 
       /// UI niceties from   examples/surface-viewer-demo.js 
-      
+
       var atlas_labels = {};
 
       // Request variables used to cancel the current request
@@ -46,7 +46,7 @@ angular.module("app").directive("brainbrowser", function() {
       }
 
       function hideLoading() {
-         scope.loading = false;
+        scope.loading = false;
       }
 
       // Make sure WebGL is available.
@@ -515,16 +515,21 @@ angular.module("app").directive("brainbrowser", function() {
           viewer.clearScreen();
           current_request = 0;
           current_request_name = "";
-          loading_div.hide();
+          // loading_div.hide();
         });
 
-        $("#brainbrowser").click(function(event) {
+        scope.element.addEventListener("click", function(event) {
           if (!event.shiftKey && !event.ctrlKey) return;
           if (viewer.model.children.length === 0) return;
 
           var annotation_display = $("#annotation-display");
           var media = $("#annotation-media");
           var pick_info = viewer.pick();
+          //keep this click into the masks...
+          //
+          console.log("Adding a mouse pick ", pick_info);
+          scope.addPointToCurrentMouseMask(pick_info);
+
           var model_data;
           var annotation_info;
           var value, label, text;

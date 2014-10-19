@@ -10,6 +10,13 @@
             </li>
 
             <li class="breadcrumb">
+                Mouse mask:
+                <pre>
+                    {{mouseMasks[mouseMasks.length -1] | json}}
+                </pre>
+            </li>
+
+            <li class="breadcrumb">
                 <table class="matrix">
                     <tbody>
                         <tr ng-repeat="row in matrix">
