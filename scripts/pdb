@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ $# -ne 1 ]; then
+	echo Usage: $0 myscript.py
+	exit
+fi
+
+python -m pdb $1

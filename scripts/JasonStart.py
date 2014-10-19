@@ -32,8 +32,12 @@ for dataType in ['*VBM_GM*_z.nii', '*DWI_FA*_z.nii', '*DWI_MD*_z.nii', '*DWI_S0*
     for imageFile in glob.glob(DataDir + dataType):
         #img = nibabel.load(os.path.join(DataDir,imageFile))
         subjectID = imageFile.split('/')[-1][0:3]
+	if subjectID == "106": #Ignoring subject 106
+		continue
         data = nibabel.load(imageFile).get_data()
         data_masked = getMask(data, maskFile)
         matrix[subjectID] = data_masked
+
+#return ma.array(matrix.items(), dtype=dtype)
 
 pass
