@@ -31,6 +31,42 @@ angular.module('app')
             label: "PC3",
             color: "#ff0000",
             visibility: 0
+        },{
+            label: "PC4",
+            color: "#00ff00",
+            visibility: 50
+        }, {
+            label: "PC5",
+            color: "#00f0ff",
+            visibility: 20
+        }, {
+            label: "PC6",
+            color: "#ff0f00",
+            visibility: 0
+        },{
+            label: "PC7",
+            color: "#f0ff00",
+            visibility: 90
+        }, {
+            label: "PC8",
+            color: "#d000ff",
+            visibility: 20
+        }, {
+            label: "PC9",
+            color: "#ff0ff0",
+            visibility: 5
+        },{
+            label: "PC10",
+            color: "#00ff0f",
+            visibility: 50
+        }, {
+            label: "PC11",
+            color: "#00ffff",
+            visibility: 100
+        }, {
+            label: "PC12",
+            color: "#ffff00",
+            visibility: 0
         }];
 
         $scope.barchart1 = {
@@ -579,7 +615,7 @@ angular.module('app')
         };
 
         $scope.scriptName = "pipeline.py";
-        $scope.apiURL = "http://localhost:8011";
+        $scope.apiURL = window.location.origin;
         // $scope.apiURL = "http://130.15.58.38:8011";
         $scope.scriptResultsRaw = "No script has run";
         $scope.runScript = function(scriptname) {
