@@ -113,7 +113,7 @@ angular.module('app')
                 }
             }
             return data;
-        }
+        };
         $scope.scatterplot1 = {
             options: {
                 chart: {
@@ -565,6 +565,19 @@ angular.module('app')
             vector: []
         }];
 
+        $scope.addPointToCurrentMouseMask = function(pick_info) {
+          $scope.mouseMasks[$scope.mouseMasks.length - 1].vector.push({
+            modelID: pick_info.object.model_name,
+            shapeID: pick_info.object.name,
+            nearestVertex: pick_info.index,
+            point: pick_info.point
+          });
+          console.log("last mask is ", $scope.mouseMasks[$scope.mouseMasks.length - 1]);
+          if (!$scope.$$phase) {
+            $scope.$digest(); //$digest or $apply
+          }
+        };
+        
         $scope.runScript = function(scriptname) {
             console.warn("security hole, this should not permit execution of unknown scripts.");
             scriptname = scriptname.trim().replace(/[\/\\]+/g, "");
