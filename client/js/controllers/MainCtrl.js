@@ -579,7 +579,7 @@ angular.module('app')
         };
 
         $scope.scriptName = "pipeline.py";
-        $scope.apiURL = "http://localhost:8011";
+        $scope.apiURL = window.location.origin;
         // $scope.apiURL = "http://130.15.58.38:8011";
         $scope.scriptResultsRaw = "No script has run";
         $scope.runScript = function(scriptname) {
