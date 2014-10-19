@@ -1,17 +1,16 @@
 import numpy as np
+from sklearn.decomposition import pca
 
-N = 20
-M = 100
-
-X = np.random.randn(N,M)
-
-Z = np.dot(X,X.transpose())
-
-U, s, V  = np.linalg.svd(Z)
-# show the eigen values
-pyplot.bar(range(0,len(s),1),s)
-
-V = np.dot(X.transpose(),U)
-
-T = np.dot(X,V)
+def CalculateScalingFactorsPCA(data):
+    # Create the covariance matrix
+    Z = np.dot(data,data.transpose())
+    # perform the SVD decomposition
+    U, s, V = pca.linalg.svd(Z)
+    # The eigenimages here are actuakly not eigenimages but a transposed 
+    # version of the eigenvectors.
+    # Recreate the eigenimages
+    V = np.dot(X.transpose(),U)
+    # Calculate the individual expression of the eigenimages
+    T = np.dot(X,V)
+    return T
 
