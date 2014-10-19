@@ -1,3 +1,6 @@
+url for demo: http://130.15.58.38:8011/
+
+
 How to open the client
 
 * In chrome: open Tools >> Extensions
