@@ -9,8 +9,8 @@ def CalculateScalingFactorsPCA(data):
     # The eigenimages here are actuakly not eigenimages but a transposed 
     # version of the eigenvectors.
     # Recreate the eigenimages
-    V = np.dot(X.transpose(),U)
+    V = np.dot(data.transpose(),U)
     # Calculate the individual expression of the eigenimages
-    T = np.dot(X,V)
+    T = np.dot(data,V)
     return T
 
