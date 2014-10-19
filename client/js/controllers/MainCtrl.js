@@ -19,6 +19,16 @@ angular.module('app')
             ["subject12", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
         ];
         
+        $scope.layers = [{
+            label: "layer1",
+            visibility: 50
+        }, {
+            label: "layer2",
+            visibility: 20
+        }, {
+            label: "layer3",
+            visibility: 0
+        }];
 
         $scope.useLogScaleForBubbleSize = false;
         $scope.toogleButtonScale = function() {
