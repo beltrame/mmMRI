@@ -77,7 +77,7 @@ angular.module('app')
                         });
                 }
 
-                scope.$watch(attr.benchmarkName, function (name) {
+                scope.$watch(attr.dataTransformOrPipelineName, function (name) {
 
                     if (sources.hasOwnProperty(name)) {
                         element.html(sources[name]);
@@ -85,8 +85,8 @@ angular.module('app')
                         addExecutionByNumber();
                     } else {
                         var info = name.split(' ');
-                        $http.post("http://184.107.193.50:8080/benchmarks/src", {
-                            "benchmark": {
+                        $http.post("http://184.107.193.50:8080/dataTransformOrPipelines/src", {
+                            "dataTransformOrPipeline": {
                                 "name": info[0],
                                 "version": info[1]
                             }

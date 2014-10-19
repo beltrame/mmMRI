@@ -10,7 +10,7 @@ angular.module('app')
                             "name": "Octave",
                             "version": "3.4.3",
                         },
-                        "benchmark": {
+                        "dataTransformOrPipeline": {
                             "name": "escoufier",
                             "version": "1.0",
                             "iteration": 3,
@@ -20,10 +20,10 @@ angular.module('app')
                     jsonForServer.backend.version = json.backendVersion;
                     jsonForServer.backend.name = json.backendName;
 
-                    jsonForServer.benchmark.name = json.benchmarkName;
-                    jsonForServer.benchmark.version = json.benchmarkVersion;
-                    jsonForServer.benchmark.iteration = json.iteration;
-                    jsonForServer.benchmark.scale = json.scale;
+                    jsonForServer.dataTransformOrPipeline.name = json.dataTransformOrPipelineName;
+                    jsonForServer.dataTransformOrPipeline.version = json.dataTransformOrPipelineVersion;
+                    jsonForServer.dataTransformOrPipeline.iteration = json.iteration;
+                    jsonForServer.dataTransformOrPipeline.scale = json.scale;
 
                     scope.$apply(function () {
                         scope.$emit("openExperimentRunner", jsonForServer);
@@ -163,7 +163,7 @@ angular.module('app')
                         .on("mouseover", function(object) {
                             return tooltip
                                 .style("visibility", "visible")
-                                .html("<div class='run_details_tooltip'>Benchmark: " + object.benchmarkName + "<br/> Time: " + object.runtime + "<br/> Iterations: " + object.iteration + "<br/> Dataset Size: " + object.scale + "</div>");
+                                .html("<div class='run_details_tooltip'>Benchmark: " + object.dataTransformOrPipelineName + "<br/> Time: " + object.runtime + "<br/> Iterations: " + object.iteration + "<br/> Dataset Size: " + object.scale + "</div>");
                         })
                         .on("mousemove", function(object) {
                             return tooltip.style("top", (event.pageY - 10) + "px")

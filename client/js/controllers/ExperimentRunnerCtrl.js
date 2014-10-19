@@ -1,11 +1,11 @@
 angular.module('app')
-    .controller('ExperimentRunnerCtrl', function($scope, $rootScope, $http, benchmarkData) {
+    .controller('ExperimentRunnerCtrl', function($scope, $rootScope, $http, dataTransformOrPipelineData) {
         $scope.data = {
             "backend": {
                 "name": "Octave",
                 "version": "3.4.3"
             },
-            "benchmark": {
+            "dataTransformOrPipeline": {
                 "name": "escoufier",
                 "version": "1.0",
                 "iteration": 3,
@@ -17,8 +17,8 @@ angular.module('app')
         $scope.sendRunCommand = function () {
             $scope.isPolling = true;
 
-            $scope.data.benchmark.iteration = parseInt($scope.data.benchmark.iteration, 10);
-            $scope.data.benchmark.scale = parseInt($scope.data.benchmark.scale, 10);
+            $scope.data.dataTransformOrPipeline.iteration = parseInt($scope.data.dataTransformOrPipeline.iteration, 10);
+            $scope.data.dataTransformOrPipeline.scale = parseInt($scope.data.dataTransformOrPipeline.scale, 10);
             $http.post('http://184.107.193.50:8080/performance/run', $scope.data)
                 .success(function (response) {
                     var taskId = response.result[1].id,
@@ -31,7 +31,7 @@ angular.module('app')
                                 if (response.result.status === "done") {
                                     clearInterval(intervalId);
                                     $scope.$apply(function() {
-                                        benchmarkData.getAll();
+                                        dataTransformOrPipelineData.getAll();
                                         $scope.isPolling = false;
                                     });
                                 } else if(response.result.status === "failed") {
@@ -54,9 +54,9 @@ angular.module('app')
         $scope.open = function (evt, data) {
             if (!data) {
                 data = {
-                    "benchmark": {
-                        "name": $scope.benchmark.instances[0].benchmarkName,
-                        "version": $scope.benchmark.instances[0].benchmarkVersion
+                    "dataTransformOrPipeline": {
+                        "name": $scope.dataTransformOrPipeline.instances[0].dataTransformOrPipelineName,
+                        "version": $scope.dataTransformOrPipeline.instances[0].dataTransformOrPipelineVersion
                     }
                 }
             }

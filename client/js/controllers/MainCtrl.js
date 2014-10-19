@@ -1,43 +1,43 @@
 angular.module('app')
-    .controller('MainCtrl', function($scope, $location, benchmarkData) {
-        $scope.benchmarks = benchmarkData.getAll();
-        $scope.benchmark = null;
+    .controller('MainCtrl', function($scope, $location, dataTransformOrPipelineData) {
+        $scope.dataTransformOrPipelines = dataTransformOrPipelineData.getAll();
+        $scope.dataTransformOrPipeline = null;
 
         $scope.useLogScaleForBubbleSize = false;
         $scope.toogleButtonScale = function() {
             $scope.useLogScaleForBubbleSize = !$scope.useLogScaleForBubbleSize;
         };
 
-        $scope.selectBenchmark = function(benchmark) {
-            $scope.benchmark = benchmark;
-            if (benchmark) {
-                $location.url('/benchmark/' + benchmarkUrl(benchmark));
+        $scope.selectBenchmark = function(dataTransformOrPipeline) {
+            $scope.dataTransformOrPipeline = dataTransformOrPipeline;
+            if (dataTransformOrPipeline) {
+                $location.url('/dataTransformOrPipeline/' + dataTransformOrPipelineUrl(dataTransformOrPipeline));
             }
         };
 
-        var stopBenchmarksWatch = $scope.$watch('benchmarks.length', function(length) {
+        var stopBenchmarksWatch = $scope.$watch('dataTransformOrPipelines.length', function(length) {
             if (length) {
-                if ($location.url().indexOf("/benchmark/") == 0) {
-                    var benchmarkName = $location.url().match(/^\/benchmark\/(.+)/);
-                    if (benchmarkName) {
-                        benchmarkName = benchmarkName[1];
-                        angular.forEach($scope.benchmarks, function(benchmark) {
-                            if (benchmarkName === benchmarkUrl(benchmark)) {
-                                $scope.selectBenchmark(benchmark);
+                if ($location.url().indexOf("/dataTransformOrPipeline/") == 0) {
+                    var dataTransformOrPipelineName = $location.url().match(/^\/dataTransformOrPipeline\/(.+)/);
+                    if (dataTransformOrPipelineName) {
+                        dataTransformOrPipelineName = dataTransformOrPipelineName[1];
+                        angular.forEach($scope.dataTransformOrPipelines, function(dataTransformOrPipeline) {
+                            if (dataTransformOrPipelineName === dataTransformOrPipelineUrl(dataTransformOrPipeline)) {
+                                $scope.selectBenchmark(dataTransformOrPipeline);
                             }
                         });
                     } else {
-                        $scope.selectBenchmark($scope.benchmarks[0]);
+                        $scope.selectBenchmark($scope.dataTransformOrPipelines[0]);
                     }
                 } else {
-                    $scope.selectBenchmark($scope.benchmarks[0]);
+                    $scope.selectBenchmark($scope.dataTransformOrPipelines[0]);
                 }
                 stopBenchmarksWatch();
             }
         });
 
 
-        function benchmarkUrl(benchmark) {
-            return encodeURIComponent(benchmark.name.replace(/ /, '-'));
+        function dataTransformOrPipelineUrl(dataTransformOrPipeline) {
+            return encodeURIComponent(dataTransformOrPipeline.name.replace(/ /, '-'));
         }
     });
