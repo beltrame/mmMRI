@@ -7,6 +7,8 @@
         <link type="text/css" rel="stylesheet" href="lib/syntaxhighlight/highlight.js/styles/ir_black.css" />
         <link type="text/css" rel="stylesheet" href="lib/prettify/sons-of-obsidian.css" />
         <link type="text/css" rel="stylesheet" href="css/main.css" />
+        <!-- <link type="text/css" href="bower_components/brainbrowser/examples/css/common.css" rel="Stylesheet" /> -->
+        <link type="text/css" href="bower_components/brainbrowser/examples/css/surface-viewer-demo.css" rel="Stylesheet" />
     </head>
     <body ng-app="app" ng-include="partialUrl + '/base.html'" ng-controller="MainCtrl" ng-csp>
         Loading...
@@ -23,5 +25,23 @@
 
         <script src="lib/prettify/prettify.js"></script>
         <script src="lib/prettify/lang-matlab.js"></script>
+
+        <script src="bower_components/brainbrowser/examples/js/three.r66.min.js"></script>
+        <script src="bower_components/brainbrowser/examples/js/AnaglyphEffect.js"></script>
+
+        <script src="bower_components/brainbrowser/src/brainbrowser/brainbrowser.js"></script>
+        <script src="bower_components/brainbrowser/src/brainbrowser/core/tree-store.js"></script>
+        <script src="bower_components/brainbrowser/src/brainbrowser/lib/config.js"></script>
+        <script src="bower_components/brainbrowser/src/brainbrowser/lib/utils.js"></script>
+        <script src="bower_components/brainbrowser/src/brainbrowser/lib/events.js"></script> 
+        <script src="bower_components/brainbrowser/src/brainbrowser/lib/loader.js"></script>
+        <script src="bower_components/brainbrowser/src/brainbrowser/lib/color-map.js"></script> 
+        <script src="bower_components/brainbrowser/src/brainbrowser/surface-viewer.js"></script>
+        <script src="bower_components/brainbrowser/src/brainbrowser/surface-viewer/lib/parse-intensity-data.js"></script> 
+        <script src="bower_components/brainbrowser/src/brainbrowser/surface-viewer/modules/annotations.js"></script>
+        <script src="bower_components/brainbrowser/src/brainbrowser/surface-viewer/modules/color.js"></script>
+        <script src="bower_components/brainbrowser/src/brainbrowser/surface-viewer/modules/loading.js"></script>
+        <script src="bower_components/brainbrowser/src/brainbrowser/surface-viewer/modules/rendering.js"></script>
+        <script src="bower_components/brainbrowser/src/brainbrowser/surface-viewer/modules/views.js"></script>
     </body>
 </html>

@@ -114,6 +114,23 @@ app.get(/^\/docs(\/.*)?$/, function(req, res, next) {
   return docs_handler(req, res, next);
 });
 
+var clientapp_handler = express.static(__dirname + '/client/');
+app.get(/^\/client(\/.*)?$/, function(req, res, next) {
+  if (req.url === '/client') { // express static barfs on root url w/o trailing slash
+    res.writeHead(302, { 'Location' : req.url + '/' });
+    res.end();
+    return;
+  }
+  // take off leading /client so that connect locates file correctly
+  req.url = req.url.substr('/client'.length);
+  return clientapp_handler(req, res, next);
+});
+
+app.get('/', function(req, res){
+  res.send("visit <a href='client/app.html'>client/app.html</a> to see the client side app, visit <a href='docs'>docs/</a> to play with the api ");
+
+})
+
 app.get('/throw/some/error', function(){
   throw {
     status: 500,
@@ -126,4 +143,5 @@ app.use(function(err, req, res, next){
 });
 
 // Start the server on port 8002
-app.listen(8002);
+app.listen(8011);
+console.log("Open your browser to localhost:8011");
