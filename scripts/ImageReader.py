@@ -25,6 +25,14 @@ class ImageReader:
         img = nibabel.load(os.path.join(self.sourcedir,imagefile))
         
         return img.get_data()
+        
+    def get_raw_image(self,imagefile):
+        """ Returns a data structure with the voxel contents """        
+        
+        # Load an image and convert it to an array
+        img = nibabel.load(os.path.join(self.sourcedir,imagefile))
+        
+        return img
     
     def mask_image(self,imagefile, maskfile):
         """ 
