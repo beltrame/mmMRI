@@ -3,8 +3,8 @@ import nibabel
 import os
 import glob
 
-DataDir = '/home/wang/Downloads/BrainHack/'
-maskFile = DataDir + 'auditorynetwork_mask.nii'
+DataDir = '/home/user03/data/brainimages/'
+maskFile = '/home/user03/data/masks/auditorynetwork_mask.nii.gz'
 
 if False:
     DataDir = '/Users/jason/Desktop/BrainHack/brainimages'
@@ -28,7 +28,7 @@ def getMask(dataFile, maskFile):
     return dataFile
 
 matrix = {}
-for dataType in ['*VBM_GM*.nii', '*DWI_FA*.nii', '*DWI_MD*.nii', '*DWI_S0*.nii', '*MTR*.nii']:
+for dataType in ['*VBM_GM*_z.nii', '*DWI_FA*_z.nii', '*DWI_MD*_z.nii', '*DWI_S0*_z.nii', '*MTR*_z.nii']:
     for imageFile in glob.glob(DataDir + dataType):
         #img = nibabel.load(os.path.join(DataDir,imageFile))
         subjectID = imageFile.split('/')[-1][0:3]
