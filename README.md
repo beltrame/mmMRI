@@ -1,6 +1,8 @@
 url for demo: http://130.15.58.38:8011/
 
 
+![alt text](https://cloud.githubusercontent.com/assets/196199/4693669/4fbe7840-57a6-11e4-85fd-3fbb2c4953fb.png "Sunday morning screenshot")
+
 How to open the client
 
 * In chrome: open Tools >> Extensions
