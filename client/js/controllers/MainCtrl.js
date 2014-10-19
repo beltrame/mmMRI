@@ -1,43 +1,76 @@
 angular.module('app')
-    .controller('MainCtrl', function($scope, $location, benchmarkData) {
-        $scope.benchmarks = benchmarkData.getAll();
-        $scope.benchmark = null;
+    .controller('MainCtrl', function($scope, $location, dataTransformOrPipelineData) {
+        $scope.dataTransformOrPipelines = dataTransformOrPipelineData.getAll();
+        $scope.dataTransformOrPipeline = null;
+
+        $scope.matrix = [
+            [, "subject1", "subject2", "subject3", "subject4", "subject5", "subject6", "subject7", "subject8", "subject9", "subject10", "subject11", "subject12"],
+            ["subject1", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ["subject2", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ["subject3", 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ["subject4", 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+            ["subject5", 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+            ["subject6", 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+            ["subject7", 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+            ["subject8", 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+            ["subject9", 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+            ["subject10", 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+            ["subject11", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+            ["subject12", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+        ];
+
+        $scope.layers = [{
+            label: "layer1",
+            visibility: 50
+        }, {
+            label: "layer2",
+            visibility: 20
+        }, {
+            label: "layer3",
+            visibility: 0
+        }];
+
+        $scope.runScript = function(scriptname) {
+            console.warn("security hole, this should not permit execution of unknown scripts.");
+            scriptname = scriptname.trim().replace(/[\/\\]+/g, "");
+            console.log("TODO call api to run this " + scriptname + "script on the data.");
+        };
 
         $scope.useLogScaleForBubbleSize = false;
         $scope.toogleButtonScale = function() {
             $scope.useLogScaleForBubbleSize = !$scope.useLogScaleForBubbleSize;
         };
 
-        $scope.selectBenchmark = function(benchmark) {
-            $scope.benchmark = benchmark;
-            if (benchmark) {
-                $location.url('/benchmark/' + benchmarkUrl(benchmark));
+        $scope.selectBenchmark = function(dataTransformOrPipeline) {
+            $scope.dataTransformOrPipeline = dataTransformOrPipeline;
+            if (dataTransformOrPipeline) {
+                $location.url('/dataTransformOrPipeline/' + dataTransformOrPipelineUrl(dataTransformOrPipeline));
             }
         };
 
-        var stopBenchmarksWatch = $scope.$watch('benchmarks.length', function(length) {
+        var stopBenchmarksWatch = $scope.$watch('dataTransformOrPipelines.length', function(length) {
             if (length) {
-                if ($location.url().indexOf("/benchmark/") == 0) {
-                    var benchmarkName = $location.url().match(/^\/benchmark\/(.+)/);
-                    if (benchmarkName) {
-                        benchmarkName = benchmarkName[1];
-                        angular.forEach($scope.benchmarks, function(benchmark) {
-                            if (benchmarkName === benchmarkUrl(benchmark)) {
-                                $scope.selectBenchmark(benchmark);
+                if ($location.url().indexOf("/dataTransformOrPipeline/") == 0) {
+                    var dataTransformOrPipelineName = $location.url().match(/^\/dataTransformOrPipeline\/(.+)/);
+                    if (dataTransformOrPipelineName) {
+                        dataTransformOrPipelineName = dataTransformOrPipelineName[1];
+                        angular.forEach($scope.dataTransformOrPipelines, function(dataTransformOrPipeline) {
+                            if (dataTransformOrPipelineName === dataTransformOrPipelineUrl(dataTransformOrPipeline)) {
+                                $scope.selectBenchmark(dataTransformOrPipeline);
                             }
                         });
                     } else {
-                        $scope.selectBenchmark($scope.benchmarks[0]);
+                        $scope.selectBenchmark($scope.dataTransformOrPipelines[0]);
                     }
                 } else {
-                    $scope.selectBenchmark($scope.benchmarks[0]);
+                    $scope.selectBenchmark($scope.dataTransformOrPipelines[0]);
                 }
                 stopBenchmarksWatch();
             }
         });
 
 
-        function benchmarkUrl(benchmark) {
-            return encodeURIComponent(benchmark.name.replace(/ /, '-'));
+        function dataTransformOrPipelineUrl(dataTransformOrPipeline) {
+            return encodeURIComponent(dataTransformOrPipeline.name.replace(/ /, '-'));
         }
     });

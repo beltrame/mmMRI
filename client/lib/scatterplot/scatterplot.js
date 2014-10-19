@@ -133,7 +133,7 @@ ScatterPlot.controller(
 				.on("mouseover", function(object) {
 					return tooltip
 					.style("visibility", "visible")
-					.html("<div class='run_details_tooltip'>Benchmark: " + object.benchmarkName  
+					.html("<div class='run_details_tooltip'>Benchmark: " + object.dataTransformOrPipelineName  
 						+ "<br/> Time: "+ object.runtime 
 						+ "<br/> Dataset Size: "+object.runtime 
 						+ "</div>");

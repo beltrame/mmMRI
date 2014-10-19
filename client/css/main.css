@@ -77,3 +77,13 @@ body,
   border-radius: 5px;
   padding: 10px;
 }
+
+.brainbrowser {
+  height: 100%;
+  width: 100%;
+}
+
+.matrix {
+  text-align: center;
+  vertical-align: center;
+}
