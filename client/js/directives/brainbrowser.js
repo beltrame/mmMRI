@@ -30,7 +30,9 @@ angular.module("app").directive("brainbrowser", function() {
       console.log("putting element in scope so it can be used by brain browser");
       scope.element = element[0];
 
-      BrainBrowser.config.set("worker_dir", "js/brainbrowser/workers/");
+
+
+      BrainBrowser.config.set("worker_dir", "bower_components/brainbrowser/src/brainbrowser/workers");
 
       // Custom configuration for the Surface Viewer demo app.
       BrainBrowser.config.set("model_types.freesurferasc.format_hint", 'You can use <a href="http://surfer.nmr.mgh.harvard.edu/fswiki/mris_convert" target="_blank">mris_convert</a> to convert your binary surface files into .asc format.');
