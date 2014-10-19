@@ -114,6 +114,18 @@ app.get(/^\/docs(\/.*)?$/, function(req, res, next) {
   return docs_handler(req, res, next);
 });
 
+var clientapp_handler = express.static(__dirname + '/client/');
+app.get(/^\/client(\/.*)?$/, function(req, res, next) {
+  if (req.url === '/client') { // express static barfs on root url w/o trailing slash
+    res.writeHead(302, { 'Location' : req.url + '/' });
+    res.end();
+    return;
+  }
+  // take off leading /client so that connect locates file correctly
+  req.url = req.url.substr('/client'.length);
+  return clientapp_handler(req, res, next);
+});
+
 app.get('/throw/some/error', function(){
   throw {
     status: 500,
