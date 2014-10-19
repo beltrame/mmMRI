@@ -18,7 +18,7 @@ angular.module('app')
             ["subject11", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
             ["subject12", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
         ];
-        
+
         $scope.layers = [{
             label: "layer1",
             visibility: 50
@@ -29,6 +29,12 @@ angular.module('app')
             label: "layer3",
             visibility: 0
         }];
+
+        $scope.runScript = function(scriptname) {
+            console.warn("security hole, this should not permit execution of unknown scripts.");
+            scriptname = scriptname.trim().replace(/[\/\\]+/g, "");
+            console.log("TODO call api to run this " + scriptname + "script on the data.");
+        };
 
         $scope.useLogScaleForBubbleSize = false;
         $scope.toogleButtonScale = function() {

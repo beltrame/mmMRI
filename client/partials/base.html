@@ -6,6 +6,10 @@
             </li>
             
             <li class="breadcrumb">
+                <input placeholder="script name to run on the data" ng-model="scriptName" type="text"/><button class="btn btn-primary" ng-click="runScript(scriptName)">Run</button>
+            </li>
+
+            <li class="breadcrumb">
                 <table class="matrix">
                     <tbody>
                         <tr ng-repeat="row in matrix">
