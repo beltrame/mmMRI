@@ -31,7 +31,7 @@ angular.module('app')
             label: "PC3",
             color: "#ff0000",
             visibility: 0
-        },{
+        }, {
             label: "PC4",
             color: "#00ff00",
             visibility: 50
@@ -43,7 +43,7 @@ angular.module('app')
             label: "PC6",
             color: "#ff0f00",
             visibility: 0
-        },{
+        }, {
             label: "PC7",
             color: "#f0ff00",
             visibility: 90
@@ -55,7 +55,7 @@ angular.module('app')
             label: "PC9",
             color: "#ff0ff0",
             visibility: 5
-        },{
+        }, {
             label: "PC10",
             color: "#00ff0f",
             visibility: 50
@@ -113,7 +113,7 @@ angular.module('app')
                     "value": 32.807804682612
                 }, {
                     "label": "FA",
-                    "value": 196.45946739256
+                    "value": 16.45946739256
                 }, {
                     "label": "T2",
                     "value": 0.19434030906893
@@ -124,32 +124,6 @@ angular.module('app')
             }]
         };
 
-
-        /* Random Data Generator (took from nvd3.org) */
-        function generateData(groups, points) { //# groups,# points per group
-            var data = [],
-                shapes = ['circle', 'cross', 'triangle-up', 'triangle-down', 'diamond', 'square'],
-                random = d3.random.normal();
-
-            for (var i = 0; i < groups; i++) {
-                data.push({
-                    key: 'Group ' + i,
-                    values: [],
-                    slope: Math.random() - .01,
-                    intercept: Math.random() - .5
-                });
-
-                for (var j = 0; j < points; j++) {
-                    data[i].values.push({
-                        x: random(),
-                        y: random(),
-                        size: Math.random(),
-                        shape: shapes[j % 6]
-                    });
-                }
-            }
-            return data;
-        };
         $scope.scatterplot1 = {
             options: {
                 chart: {
@@ -635,7 +609,11 @@ angular.module('app')
                 method: "POST"
             }).then(function(result) {
                 console.log("got a result", result);
-                $scope.scriptResultsRaw = result;
+                try {
+                    $scope.scriptResultsRaw = JSON.stringify(result);
+                } catch (e) {
+                    $scope.scriptResultsRaw = result;
+                }
                 if (!$scope.$$phase) {
                     $scope.$digest(); //$digest or $apply
                 }
