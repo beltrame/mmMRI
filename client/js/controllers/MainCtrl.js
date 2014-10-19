@@ -21,14 +21,18 @@ angular.module('app')
 
         $scope.layers = [{
             label: "layer1",
+            color: "#00ff00",
             visibility: 50
         }, {
             label: "layer2",
+            color: "#0000ff",
             visibility: 20
         }, {
             label: "layer3",
+            color: "#ff0000",
             visibility: 0
         }];
+
 
         $scope.runScript = function(scriptname) {
             console.warn("security hole, this should not permit execution of unknown scripts.");

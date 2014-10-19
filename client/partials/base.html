@@ -4,7 +4,7 @@
             <li ng-repeat="dataTransformOrPipeline in dataTransformOrPipelines" class="breadcrumb" ng-class="{active: dataTransformOrPipeline == $parent.dataTransformOrPipeline}">
                 <a ng-click="selectBenchmark(dataTransformOrPipeline)">{{ dataTransformOrPipeline.name }}</a>
             </li>
-            
+
             <li class="breadcrumb">
                 <input placeholder="script name to run on the data" ng-model="scriptName" type="text"/><button class="btn btn-primary" ng-click="runScript(scriptName)">Run</button>
             </li>
@@ -24,10 +24,11 @@
              <li class="breadcrumb">
                 <ul class="unstyled">
                     <li ng-repeat="layer in layers">
-                        <input type="range" ng-model="layer.visibility" max="100" min="0"/> {{layer.label}}
+                        <input type="range" ng-model="layer.visibility" max="100" min="0"/> {{layer.label}} Color: <input type="color" ng-model="layer.color" />{{layer.color}}
                     </li>
                 </ul>
             </li>
+
         </ul>
     </div>
     <div class="col-sm-8" ng-include="partialUrl + '/dataTransformOrPipeline-view.html'" ng-controller="BenchmarkViewCtrl">
