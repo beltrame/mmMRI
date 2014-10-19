@@ -148,7 +148,7 @@ app.get(/^\/client(\/.*)?$/, function(req, res, next) {
 app.post('/pipeline', function(req, res) {
   console.log(req.body);
   var scriptName = req.body.scriptToRun;
-  var piplineCommand = "./scripts/" + scriptName + " parameter one two";
+  var piplineCommand = "python scripts/" + scriptName + " parameter one two";
   shellPromises.execute(piplineCommand)
     .then(function(results) {
       console.log("Created web playable audio results: ");
