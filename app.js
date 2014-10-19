@@ -25,6 +25,7 @@ var express = require("express")
 var models = require("./lib/models.js");
 
 var petResources = require("./lib/resources.js");
+var port = 8011;
 
 var corsOptions = {
   credentials: true,
@@ -99,7 +100,7 @@ swagger.setAuthorizations({
 
 // Configures the app's base path and api version.
 swagger.configureSwaggerPaths("", "api-docs", "")
-swagger.configure("http://localhost:8002", "1.0.0");
+swagger.configure("http://localhost:"+ port, "1.0.0");
 
 // Serve up swagger ui at /docs via static route
 var docs_handler = express.static(__dirname + '/public/');
@@ -143,5 +144,5 @@ app.use(function(err, req, res, next){
 });
 
 // Start the server on port 8002
-app.listen(8011);
-console.log("Open your browser to localhost:8011");
+app.listen(port);
+console.log("Open your browser to localhost:"+port);
