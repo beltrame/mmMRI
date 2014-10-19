@@ -71,8 +71,8 @@ swagger.addModels(models)
   .addGet(pipelineResources.findByTags)    // - /pipeline/findByTags
   .addGet(pipelineResources.findByStatus)  // - /pipeline/findByStatus
   .addGet(pipelineResources.findById)      // - /pipeline/{pipelineId}
-  .addPost(pipelineResources.addPipeline)
-  .addPut(pipelineResources.updatePipeline)
+  // .addPost(pipelineResources.runPipeline)
+  // .addPut(pipelineResources.updatePipeline)
   .addDelete(pipelineResources.deletePipeline);
 
 swagger.configureDeclaration("pipeline", {
@@ -127,16 +127,20 @@ app.get(/^\/client(\/.*)?$/, function(req, res, next) {
   return clientapp_handler(req, res, next);
 });
 
-app.get('/', function(req, res){
-  res.send("visit <a href='client/app.html'>client/app.html</a> to see the client side app, visit <a href='docs'>docs/</a> to play with the api ");
+// app.get('/', function(req, res){
+//   res.send("visit <a href='client/app.html'>client/app.html</a> to see the client side app, visit <a href='docs'>docs/</a> to play with the api ");
 
-})
+// })
 
-app.get('/throw/some/error', function(){
-  throw {
-    status: 500,
-    message: 'we just threw an error for a test case!'
-  };
+// app.get('/throw/some/error', function(){
+//   throw {
+//     status: 500,
+//     message: 'we just threw an error for a test case!'
+//   };
+// });
+
+app.post('/pipeline', function(req, res ){
+  res.send({result: 'weaweraeiera'});
 });
 
 app.use(function(err, req, res, next){
