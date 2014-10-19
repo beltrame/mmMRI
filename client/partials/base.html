@@ -14,7 +14,7 @@
                 <textarea ng-model="scriptResultsRaw"></textarea>
             </li>
 
-            <li class="breadcrumb">
+            <li class="breadcrumb" title=" this shows the json of the mouse clicks whcih can be converted into an array or vector in your favorite volume processing library">
                 Mouse mask:
                 <pre>
                     {{mouseMasks[mouseMasks.length -1] | json}}
@@ -22,7 +22,7 @@
             </li>
 
             <li class="breadcrumb">
-                <table class="matrix">
+                <table title=" this matrix can be connected to the results data from the MainCtrl.js file" class="matrix">
                     <tbody>
                         <tr ng-repeat="row in matrix">
                             <td ng-repeat="column in row track by $index" contenteditable>
@@ -36,22 +36,22 @@
              <li class="breadcrumb">
                 <ul class="unstyled">
                     <li ng-repeat="layer in layers">
-                        <input type="range" ng-model="layer.visibility" max="100" min="0"/> {{layer.label}} Color: <input type="color" ng-model="layer.color" />{{layer.color}}
+                        <input title="change the slider to change the transparency of the layer" type="range" ng-model="layer.visibility" max="100" min="0"/> {{layer.label}} Color: <input title="click on this and a color picker will appear so you can choose any color you would like for this layer" type="color" ng-model="layer.color" />{{layer.color}}
                     </li>
                 </ul>
             </li>
 
             <li class="breadcrumb">
-              <nvd3 options='barchart1.options' data='barchart1.data'></nvd3>
+              <nvd3 title=" this bar chart can be connected to the results data from the MainCtrl.js file"  options='barchart1.options' data='barchart1.data'></nvd3>
             </li>
 
             <li class="breadcrumb">
-              <nvd3 options='scatterplot1.options' data='scatterplot1.data'></nvd3>
+              <nvd3 title=" this scatter plot can be connected to the results data from the MainCtrl.js file" options='scatterplot1.options' data='scatterplot1.data'></nvd3>
             </li>
 
         </ul>
     </div>
-    <div class="col-sm-8" ng-include="partialUrl + '/dataTransformOrPipeline-view.html'" ng-controller="BenchmarkViewCtrl">
+    <div class="col-sm-8" ng-include="partialUrl + '/dataTransformOrPipeline-view.html'" ng-controller="BenchmarkViewCtrl" title="use your mouse to zoom in and out, click on the brain to rotate it in 3D space, use SHIFT+Click to trace a shape which can become verticies of a new volumn mask (the mask appears in a vector on the left side). This mask is passed to your scripts which can be used to filter the data ">
     </div>
     <!-- <div class="col-sm-1">
         <ul class="list-unstyled">
