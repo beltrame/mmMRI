@@ -133,7 +133,7 @@ app.get(/^\/client(\/.*)?$/, function(req, res, next) {
   return clientapp_handler(req, res, next);
 });
 
-app.get('/', function(req, res){
+app.get('/', function(req, res) {
   res.send("visit <a href='client/app.html'>client/app.html</a> to see the client side app, visit <a href='docs'>docs/</a> to play with the api ");
 
 })
@@ -148,6 +148,14 @@ app.get('/', function(req, res){
 app.post('/pipeline', function(req, res) {
   console.log(req.body);
   var scriptName = req.body.scriptToRun;
+  if (!scriptName || !scriptName.trim) {
+    res.send(403, {
+      error: "invalid scriptName"
+    });
+  }
+  console.warn("security hole, this should not permit execution of unknown scripts.");
+  scriptName = scriptName.trim().replace(/[\/\\]+/g, "");
+
   var piplineCommand = "python scripts/" + scriptName + " parameter one two";
   shellPromises.execute(piplineCommand)
     .then(function(results) {
@@ -161,7 +169,7 @@ app.post('/pipeline', function(req, res) {
     })
     .fail(function(reason) {
       console.log("fail to run script", reason);
-      
+
       res.send(499, {
         error: reason
       });
