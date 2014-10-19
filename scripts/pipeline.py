@@ -26,10 +26,8 @@ def main(argv):
          maskfile = arg
       elif opt in ("-c", "--components"):
          n_components = arg
-    #print 'Input file is ', maskfile
-    #print 'Components ', n_components
-
-    dataset = pickle.load(open('dataset.pickle','rb'))
+    
+    dataset = pickle.load(open('/home/user03/data/dataset.pickle','rb'))
 
     # PCA
     # Standardize the dataset
@@ -42,7 +40,6 @@ def main(argv):
     dataPCA = pca.transform(dataset)
 
     # LEARNING
-    print dataPCA
 
 if __name__ == "__main__":
    main(sys.argv[1:])
