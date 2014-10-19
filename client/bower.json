@@ -13,6 +13,7 @@
     "bootstrap": "~3.0.0-rc1",
     "angular-bootstrap": "~0.5.0",
     "angular-nvd3": "http://github.com/cesine/angular-nvd3.git#~0.1.0",
-    "brainbrowser": "https://github.com/cesine/brainbrowser.git#brainhack"
+    "brainbrowser": "https://github.com/cesine/brainbrowser.git#brainhack",
+    "q": "1.0.1"
   }
 }
