@@ -43,16 +43,16 @@ angular.module("app").directive("brainbrowser", function() {
 
       // Hide or display loading icon.
       function showLoading() {
-        $scope.loading = true;
+        scope.loading = true;
       }
 
       function hideLoading() {
-         $scope.loading = false;
+         scope.loading = false;
       }
 
       // Make sure WebGL is available.
       if (!BrainBrowser.utils.webglEnabled()) {
-        $scope.error = BrainBrowser.utils.webGLErrorMessage();
+        scope.error = BrainBrowser.utils.webGLErrorMessage();
         return;
       }
 
@@ -67,19 +67,19 @@ angular.module("app").directive("brainbrowser", function() {
 
       BrainBrowser.config.set("color_maps", [{
         name: "Spectral",
-        url: "color-maps/spectral.txt",
+        url: "bower_components/brainbrowser/examples/color-maps/spectral.txt",
       }, {
         name: "Thermal",
-        url: "color-maps/thermal.txt",
+        url: "bower_components/brainbrowser/examples/color-maps/thermal.txt",
       }, {
         name: "Gray",
-        url: "color-maps/gray-scale.txt",
+        url: "bower_components/brainbrowser/examples/color-maps/gray-scale.txt",
       }, {
         name: "Blue",
-        url: "color-maps/blue.txt",
+        url: "bower_components/brainbrowser/examples/color-maps/blue.txt",
       }, {
         name: "Green",
-        url: "color-maps/green.txt",
+        url: "bower_components/brainbrowser/examples/color-maps/green.txt",
       }]);
 
       if (!scope.element) {
@@ -388,8 +388,8 @@ angular.module("app").directive("brainbrowser", function() {
         ////////////////////////////////////
         viewer.render();
 
-        // // Load a color map (required for displaying intensity data).
-        // viewer.loadColorMapFromURL(BrainBrowser.config.get("color_maps")[0].url);
+        // Load a color map (required for displaying intensity data).
+        viewer.loadColorMapFromURL(BrainBrowser.config.get("color_maps")[0].url);
 
         // ///////////////////////////////////
         // // UI
