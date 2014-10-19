@@ -29,3 +29,5 @@ client/app.write.js
 
 # mac files
 .DS_Store
+
+*~
