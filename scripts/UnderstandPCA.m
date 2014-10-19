@@ -34,7 +34,7 @@ T = X*V;
 % is a weighted combination of the eigenvectors. Note, that some of these
 % eigenvectors can be set to ZERO to ignore them.
 
-% Create the weighted  ombination image as:
+% Create the weighted  combination image as:
 
 BImage = V*B;
 
