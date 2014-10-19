@@ -36,14 +36,14 @@ if __name__ == "__main__":
     if len(sys.argv)<2:
         print "Usage: zscoring.py <path to .nii.gz files>"
         sys.exit(0)
-    
-    # Counter
-    i = 0    
-    
+      
     for dataType in ['*VBM_GM*STD.nii.gz', '*DWI_FA*STD.nii.gz', '*DWI_MD*STD.nii.gz', '*DWI_S0*STD.nii.gz', '*MTR*brain.nii.gz']:
         files = glob.glob(os.path.join(sys.argv[1],dataType))
-        print "Found "+dataType, len(files), "files\nProcessing..."
+        print "\nFound "+dataType, len(files), "files\nProcessing..."
+        # Counter
+        i = 0            
         for imageFile in files:
             zscoringNII(imageFile, sourcedir='')
+            i = i + 1
             sys.stdout.write("\r%d%%" % int((float(i)/len(files))*100))
             sys.stdout.flush()
