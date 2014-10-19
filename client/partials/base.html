@@ -1,10 +1,10 @@
 <div id="page" class="row">
-    <div class="col-sm-2">
+    <div class="col-sm-4">
         <ul class="list-unstyled">
             <li ng-repeat="dataTransformOrPipeline in dataTransformOrPipelines" class="breadcrumb" ng-class="{active: dataTransformOrPipeline == $parent.dataTransformOrPipeline}">
                 <a ng-click="selectBenchmark(dataTransformOrPipeline)">{{ dataTransformOrPipeline.name }}</a>
             </li>
-            
+
             <li class="breadcrumb">
                 <input placeholder="script name to run on the data" ng-model="scriptName" type="text"/><button class="btn btn-primary" ng-click="runScript(scriptName)">Run</button>
             </li>
@@ -24,21 +24,30 @@
              <li class="breadcrumb">
                 <ul class="unstyled">
                     <li ng-repeat="layer in layers">
-                        <input type="range" ng-model="layer.visibility" max="100" min="0"/> {{layer.label}}
+                        <input type="range" ng-model="layer.visibility" max="100" min="0"/> {{layer.label}} Color: <input type="color" ng-model="layer.color" />{{layer.color}}
                     </li>
                 </ul>
             </li>
+
+            <li class="breadcrumb">
+              <nvd3 options='barchart1.options' data='barchart1.data'></nvd3>
+            </li>
+
+            <li class="breadcrumb">
+              <nvd3 options='scatterplot1.options' data='scatterplot1.data'></nvd3>
+            </li>
+
         </ul>
     </div>
     <div class="col-sm-8" ng-include="partialUrl + '/dataTransformOrPipeline-view.html'" ng-controller="BenchmarkViewCtrl">
     </div>
-    <div class="col-sm-2">
+    <!-- <div class="col-sm-1">
         <ul class="list-unstyled">
             <li ng-repeat="instance in dataTransformOrPipeline.instances" class="breadcrumb" ng-class="{active: dataTransformOrPipeline.isActive(instance)}">
                 <a ng-click="dataTransformOrPipeline.toggleActive(instance)">{{ instance.backendName }} {{ instance.backendVersion }}</a>
             </li>
         </ul>
-    </div>
+    </div> -->
 </div>
 
 <div ng-include="partialUrl + '/experiment-runner-modal.html'"></div>
