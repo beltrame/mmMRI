@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <script>
+    // Freesurfer fs parsing
+
+    function handleResponse(data) {
+      var bytes = new Uint8Array(data);
+      var index = 0;
+      var length = bytes.length;
+      var float_view;
+
+      var magic_number = combineBytes(bytes, 0, 3);
+      index += 3;
+
+      if (magic_number === (-1 & 0x00ffffff)) {
+        console.log("QUAD")
+      } else if (magic_number === (-2 & 0x00ffffff)) {
+        console.log("TRIANGLE")
+      } else if (magic_number === (-3 & 0x00ffffff)) {
+        console.log("NEW QUAD")
+      } else {
+        console.log("UNKNOWN")
+      }
+
+      var string = "";
+
+      while (bytes[index] !== 0x0A || bytes[index + 1] !== 0x0A) {
+        string += String.fromCharCode(bytes[index++]);
+      }
+      index += 2; //Skip over two newlines
+
+      console.log(string);
+
+      var num_vertices = combineBytes(bytes, index, 4);
+      index += 4;
+
+      console.log(num_vertices);
+
+      var num_faces = combineBytes(bytes, index, 4);
+      index += 4;
+
+      console.log(num_faces);
+
+      var vertices = new Float32Array(num_vertices * 3);
+      var faces = new Uint32Array(num_faces * 3);
+
+      var i, coord_i;
+
+      for (i = 0; i < num_vertices; i++) {
+        coord_i = i * 3;
+        var verts = new Float32Array(data.slice(index, index + 12));
+        vertices[coord_i] = verts[0];
+        vertices[coord_i+1] = verts[1];
+        vertices[coord_i+2] = verts[2];
+
+        index += 12;
+      }
+
+      for (i = 0; i < num_faces * 3; i++) {
+        faces[i] = combineBytes(bytes, index, 4);
+        index += 4;
+      }
+
+      var geometry = {
+        vertices: Array.prototype.slice.call(vertices),
+        indices: Array.prototype.slice.call(faces)
+      };
+
+      var url = window.URL.createObjectURL(new Blob([JSON.stringify(geometry)], {type : "applicaton/json"}));
+
+      var link = document.createElement("a");
+
+      link.href = url;
+
+      link.download = "geometry.json";
+
+      link.innerText = "Click me!";
+
+      document.body.appendChild(link);
+
+    }
+
+    function combineBytes(bytes, start, count) {
+      var result = 0;
+      var end = start + count;
+
+      for (i = start; i < end; i++) {
+        result += bytes[i] << (count - (i - start) - 1) * 8;
+      }
+
+      return result;
+    }
+
+    var request = new XMLHttpRequest();
+
+    request.open("GET", "cortex_concat.fs");
+
+    request.responseType = "arraybuffer";
+    
+    request.onreadystatechange = function() {
+      if (request.readyState === 4){
+        status = request.status;
+
+        // Based on jQuery's "success" codes.
+        if(status >= 200 && status < 300 || status === 304) {
+          handleResponse(request.response);
+        } else {
+          var error_message = "error loading file\n" +
+            "HTTP Response: " + request.status + "\n" +
+            "HTTP Status: " + request.statusText + "\n" +
+            "Response was: \n" + request.response;
+
+          throw new Error(error_message);
+        }
+      }
+    };
+    
+    request.send();
+  </script>
+</body>
+</html>
