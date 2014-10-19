@@ -1330,7 +1330,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
     }
 
     HeaderView.prototype.events = {
-      'click #show-pet-store-icon': 'showPetStore',
+      'click #show-pipeline-store-icon': 'showPipelinesForBrainVolumeScans',
       'click #show-wordnik-dev-icon': 'showWordnikDev',
       'click #explore': 'showCustom',
       'keyup #input_baseUrl': 'showCustomOnKeyup',
@@ -1339,9 +1339,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
     HeaderView.prototype.initialize = function() {};
 
-    HeaderView.prototype.showPetStore = function(e) {
+    HeaderView.prototype.showPipelinesForBrainVolumeScans = function(e) {
       return this.trigger('update-swagger-ui', {
-        url: "http://petstore.swagger.wordnik.com/api/api-docs"
+        url: "http://pipelinestore.swagger.wordnik.com/api/api-docs"
       });
     };
 

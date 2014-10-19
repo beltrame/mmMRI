@@ -3,15 +3,15 @@
 // This is a sample application which uses the [swagger-node-express](https://github.com/wordnik/swagger-node-express)
 // module.  The application is organized in the following manner:
 //
-// #### petResources.js
+// #### pipelineResources.js
 //
-// All API methods for this petstore implementation live in this file and are added to the swagger middleware.
+// All API methods for this pipelinestore implementation live in this file and are added to the swagger middleware.
 //
 // #### models.js
 //
 // This contains all model definitions which are sent & received from the API methods.
 //
-// #### petData.js
+// #### pipelineData.js
 //
 // This is the sample implementation which deals with data for this application
 
@@ -24,7 +24,7 @@ var express = require("express")
 
 var models = require("./lib/models.js");
 
-var petResources = require("./lib/resources.js");
+var pipelineResources = require("./lib/resources.js");
 var port = 8011;
 
 var corsOptions = {
@@ -64,19 +64,19 @@ swagger.addValidator(
   }
 );
 
-console.log("loading petResources.findByTags", petResources.findByTags);
+console.log("loading pipelineResources.findByTags", pipelineResources.findByTags);
 
 // Add models and methods to swagger
 swagger.addModels(models)
-  .addGet(petResources.findByTags)    // - /pet/findByTags
-  // .addGet(petResources.findByStatus)  // - /pet/findByStatus
-  // .addGet(petResources.findById)      // - /pet/{petId}
-  // .addPost(petResources.addPet)
-  // .addPut(petResources.updatePet)
-  // .addDelete(petResources.deletePet);
+  .addGet(pipelineResources.findByTags)    // - /pipeline/findByTags
+  .addGet(pipelineResources.findByStatus)  // - /pipeline/findByStatus
+  .addGet(pipelineResources.findById)      // - /pipeline/{pipelineId}
+  .addPost(pipelineResources.addPipeline)
+  .addPut(pipelineResources.updatePipeline)
+  .addDelete(pipelineResources.deletePipeline);
 
-swagger.configureDeclaration("pet", {
-  description : "Operations about Pets",
+swagger.configureDeclaration("pipeline", {
+  description : "Operations about Pipelines",
   authorizations : ["oauth2"],
   produces: ["application/json"]
 });
@@ -84,7 +84,7 @@ swagger.configureDeclaration("pet", {
 // set api info
 swagger.setApiInfo({
   title: "Swagger Sample App",
-  description: "This is a sample server Petstore server. You can find out more about Swagger at <a href=\"http://swagger.wordnik.com\">http://swagger.wordnik.com</a> or on irc.freenode.net, #swagger.  For this sample, you can use the api key \"special-key\" to test the authorization filters",
+  description: "This is a sample server Pipelinestore server. You can find out more about Swagger at <a href=\"http://swagger.wordnik.com\">http://swagger.wordnik.com</a> or on irc.freenode.net, #swagger.  For this sample, you can use the api key \"special-key\" to test the authorization filters",
   termsOfServiceUrl: "http://helloreverb.com/terms/",
   contact: "apiteam@wordnik.com",
   license: "Apache 2.0",
