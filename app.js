@@ -126,6 +126,11 @@ app.get(/^\/client(\/.*)?$/, function(req, res, next) {
   return clientapp_handler(req, res, next);
 });
 
+app.get('/', function(req, res){
+  res.send("visit <a href='client/app.html'>client/app.html</a> to see the client side app, visit <a href='docs'>docs/</a> to play with the api ");
+
+})
+
 app.get('/throw/some/error', function(){
   throw {
     status: 500,
