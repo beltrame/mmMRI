@@ -145,23 +145,23 @@ angular.module("app").directive("brainbrowser", function() {
                 "Opacity: " +
                 "</div>");
               slider = $("<div class=\"opacity-slider slider\" data-shape-name=\"" + shape.name + "\"></div>");
-              slider.slider({
-                value: 100,
-                min: -1,
-                max: 101,
-                slide: function(event) {
-                  var target = event.target;
-                  var shape_name = $(target).attr("data-shape-name");
-                  var alpha = $(target).slider("value");
-                  alpha = Math.min(100, Math.max(0, alpha)) / 100.0;
+              // slider.slider({
+              //   value: 100,
+              //   min: -1,
+              //   max: 101,
+              //   slide: function(event) {
+              //     var target = event.target;
+              //     var shape_name = $(target).attr("data-shape-name");
+              //     var alpha = $(target).slider("value");
+              //     alpha = Math.min(100, Math.max(0, alpha)) / 100.0;
 
-                  viewer.setTransparency(alpha, {
-                    shape_name: shape_name
-                  });
-                }
-              });
-              slider.appendTo(slider_div);
-              slider_div.appendTo("#shapes");
+              //     viewer.setTransparency(alpha, {
+              //       shape_name: shape_name
+              //     });
+              //   }
+              // });
+              // slider.appendTo(slider_div);
+              // slider_div.appendTo("#shapes");
             });
           }
         });
@@ -691,10 +691,9 @@ angular.module("app").directive("brainbrowser", function() {
         });
 
         // Load demo models.
-        $("#examples").click(function(e) {
+        var loadData = function(name) {
           current_request++;
 
-          var name = $(e.target).attr("data-example-name");
           var matrixRotX, matrixRotY, matrixRotZ;
 
           if (current_request_name === name) return;
@@ -708,19 +707,19 @@ angular.module("app").directive("brainbrowser", function() {
             };
           }
 
-          loading_div.show();
+          scope.loading = true;
           viewer.clearScreen();
 
           var examples = {
             atlas: function() {
               viewer.annotations.setMarkerRadius(1);
-              viewer.loadModelFromURL("models/brain-surface.obj", {
+              viewer.loadModelFromURL("bower_components/brainbrowser/examples/models/brain-surface.obj", {
                 format: "mniobj",
                 complete: function() {
                   $("#vertex-data-wrapper").show();
                   $("#pick-value-wrapper").show();
                   $("#pick-label-wrapper").show();
-                  viewer.loadIntensityDataFromURL("models/atlas-values.txt", {
+                  viewer.loadIntensityDataFromURL("bower_components/brainbrowser/examples/models/atlas-values.txt", {
                     complete: hideLoading
                   });
                 },
@@ -731,24 +730,24 @@ angular.module("app").directive("brainbrowser", function() {
               });
             },
             dti: function() {
-              viewer.loadModelFromURL("models/dti.obj", {
+              viewer.loadModelFromURL("bower_components/brainbrowser/examples/models/dti.obj", {
                 format: "mniobj",
                 render_depth: 999,
                 complete: hideLoading,
                 cancel: defaultCancelOptions(current_request)
               });
-              viewer.loadModelFromURL("models/left-color-mesh.obj", {
+              viewer.loadModelFromURL("bower_components/brainbrowser/examples/models/left-color-mesh.obj", {
                 format: "mniobj",
                 cancel: defaultCancelOptions(current_request)
               });
-              viewer.loadModelFromURL("models/right-color-mesh.obj", {
+              viewer.loadModelFromURL("bower_components/brainbrowser/examples/models/right-color-mesh.obj", {
                 format: "mniobj",
                 cancel: defaultCancelOptions(current_request)
               });
             },
             cortical_thickness: function() {
               viewer.annotations.setMarkerRadius(1);
-              viewer.loadModelFromURL("models/brain-surface.obj", {
+              viewer.loadModelFromURL("bower_components/brainbrowser/examples/models/brain-surface.obj", {
                 format: "mniobj",
                 parse: {
                   split: true
@@ -756,7 +755,7 @@ angular.module("app").directive("brainbrowser", function() {
                 complete: function() {
                   $("#vertex-data-wrapper").show();
                   $("#pick-value-wrapper").show();
-                  viewer.loadIntensityDataFromURL("models/cortical-thickness.txt", {
+                  viewer.loadIntensityDataFromURL("bower_components/brainbrowser/examples/models/cortical-thickness.txt", {
                     name: "Cortical Thickness",
                     complete: hideLoading,
                     cancel: defaultCancelOptions(current_request)
@@ -767,7 +766,7 @@ angular.module("app").directive("brainbrowser", function() {
             },
             car: function() {
               viewer.annotations.setMarkerRadius(0.3);
-              viewer.loadModelFromURL("models/car.obj", {
+              viewer.loadModelFromURL("bower_components/brainbrowser/examples/models/car.obj", {
                 format: "wavefrontobj",
                 complete: function() {
                   $("#vertex-data-wrapper").show();
@@ -789,12 +788,12 @@ angular.module("app").directive("brainbrowser", function() {
             },
             freesurfer: function() {
               viewer.annotations.setMarkerRadius(1);
-              viewer.loadModelFromURL("models/freesurfer-surface.asc", {
+              viewer.loadModelFromURL("bower_components/brainbrowser/examples/models/freesurfer-surface.asc", {
                 format: "freesurferasc",
                 complete: function() {
                   $("#vertex-data-wrapper").show();
                   $("#pick-value-wrapper").show();
-                  viewer.loadIntensityDataFromURL("models/freesurfer-thickness.asc", {
+                  viewer.loadIntensityDataFromURL("bower_components/brainbrowser/examples/models/freesurfer-thickness.asc", {
                     format: "freesurferasc",
                     name: "Cortical Thickness",
                     complete: hideLoading,
@@ -807,7 +806,7 @@ angular.module("app").directive("brainbrowser", function() {
             dbs: function() {
               viewer.annotations.setMarkerRadius(0.3);
 
-              viewer.loadModelFromURL("models/dbs.json", {
+              viewer.loadModelFromURL("bower_components/brainbrowser/examples/models/dbs.json", {
                 format: "json",
                 complete: function() {
                   var i;
@@ -837,12 +836,12 @@ angular.module("app").directive("brainbrowser", function() {
                 cancel: defaultCancelOptions(current_request)
               });
 
-              viewer.loadModelFromURL("models/dbs-fibers.json", {
+              viewer.loadModelFromURL("bower_components/brainbrowser/examples/models/dbs-fibers.json", {
                 format: "json",
                 cancel: defaultCancelOptions(current_request)
               });
 
-              viewer.loadModelFromURL("models/dbs-vat.json", {
+              viewer.loadModelFromURL("bower_components/brainbrowser/examples/models/dbs-vat.json", {
                 format: "json",
                 cancel: defaultCancelOptions(current_request)
               });
@@ -866,7 +865,7 @@ angular.module("app").directive("brainbrowser", function() {
 
           return false;
 
-        });
+        };
 
         // If the user changes the format that's being submitted,
         // display a hint if one has been configured.
@@ -914,6 +913,8 @@ angular.module("app").directive("brainbrowser", function() {
 
         // Load first model.
         $("a.example[data-example-name=atlas]").click();
+        loadData('dbs');
+
       });
     }
   };
