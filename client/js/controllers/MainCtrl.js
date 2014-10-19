@@ -592,15 +592,24 @@ angular.module('app')
                 url: $scope.apiURL + "/pipeline",
                 withCredentials: false,
                 data: {
-                    scriptToRun: $scope.scriptname,
+                    scriptToRun: scriptname,
                     rawTextPreviousOutputPotentiallyModifiedOutputByUser: $scope.scriptResultsRaw,
                     mouseMaskJson: $scope.mouseMasks[$scope.mouseMasks.length - 1]
                 },
                 method: "POST"
             }).then(function(result) {
                 console.log("got a result", result);
+                $scope.scriptResultsRaw = result;
+                if (!$scope.$$phase) {
+                    $scope.$digest(); //$digest or $apply
+                }
             }, function(error) {
+
                 console.log("got an error", error);
+                $scope.scriptResultsRaw = error;
+                if (!$scope.$$phase) {
+                    $scope.$digest(); //$digest or $apply
+                }
             });
         };
 

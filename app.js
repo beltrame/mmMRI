@@ -16,11 +16,12 @@
 // This is the sample implementation which deals with data for this application
 
 // Include express and swagger in the application.
-var express = require("express")
- , url = require("url")
- , cors = require("cors")
- , app = express()
- , swagger = require("swagger-node-express").createNew(app);
+var express = require("express"),
+  url = require("url"),
+  cors = require("cors"),
+  app = express(),
+  swagger = require("swagger-node-express").createNew(app),
+  shellPromises = require("./lib/shellPromises");
 
 var models = require("./lib/models.js");
 
@@ -29,14 +30,14 @@ var port = 8011;
 
 var corsOptions = {
   credentials: true,
-  origin: function(origin,callback) {
-    if(origin===undefined) {
-      callback(null,false);
+  origin: function(origin, callback) {
+    if (origin === undefined) {
+      callback(null, false);
     } else {
       // change wordnik.com to your allowed domain.
       var match = origin.match("^(.*)?.wordnik.com(\:[0-9]+)?");
-      var allowed = (match!==null && match.length > 0);
-      callback(null,allowed);
+      var allowed = (match !== null && match.length > 0);
+      callback(null, allowed);
     }
   }
 };
@@ -54,7 +55,8 @@ swagger.addValidator(
     if ("POST" == httpMethod || "DELETE" == httpMethod || "PUT" == httpMethod) {
       var apiKey = req.headers["api_key"];
       if (!apiKey) {
-        apiKey = url.parse(req.url,true).query["api_key"]; }
+        apiKey = url.parse(req.url, true).query["api_key"];
+      }
       if ("special-key" == apiKey) {
         return true;
       }
@@ -68,16 +70,16 @@ console.log("loading pipelineResources.findByTags", pipelineResources.findByTags
 
 // Add models and methods to swagger
 swagger.addModels(models)
-  .addGet(pipelineResources.findByTags)    // - /pipeline/findByTags
-  .addGet(pipelineResources.findByStatus)  // - /pipeline/findByStatus
-  .addGet(pipelineResources.findById)      // - /pipeline/{pipelineId}
-  // .addPost(pipelineResources.runPipeline)
-  // .addPut(pipelineResources.updatePipeline)
-  .addDelete(pipelineResources.deletePipeline);
+  .addGet(pipelineResources.findByTags) // - /pipeline/findByTags
+.addGet(pipelineResources.findByStatus) // - /pipeline/findByStatus
+.addGet(pipelineResources.findById) // - /pipeline/{pipelineId}
+// .addPost(pipelineResources.runPipeline)
+// .addPut(pipelineResources.updatePipeline)
+.addDelete(pipelineResources.deletePipeline);
 
 swagger.configureDeclaration("pipeline", {
-  description : "Operations about Pipelines",
-  authorizations : ["oauth2"],
+  description: "Operations about Pipelines",
+  authorizations: ["oauth2"],
   produces: ["application/json"]
 });
 
@@ -100,13 +102,15 @@ swagger.setAuthorizations({
 
 // Configures the app's base path and api version.
 swagger.configureSwaggerPaths("", "api-docs", "")
-swagger.configure("http://localhost:"+ port, "1.0.0");
+swagger.configure("http://localhost:" + port, "1.0.0");
 
 // Serve up swagger ui at /docs via static route
 var docs_handler = express.static(__dirname + '/public/');
 app.get(/^\/docs(\/.*)?$/, function(req, res, next) {
   if (req.url === '/docs') { // express static barfs on root url w/o trailing slash
-    res.writeHead(302, { 'Location' : req.url + '/' });
+    res.writeHead(302, {
+      'Location': req.url + '/'
+    });
     res.end();
     return;
   }
@@ -118,7 +122,9 @@ app.get(/^\/docs(\/.*)?$/, function(req, res, next) {
 var clientapp_handler = express.static(__dirname + '/client/');
 app.get(/^\/client(\/.*)?$/, function(req, res, next) {
   if (req.url === '/client') { // express static barfs on root url w/o trailing slash
-    res.writeHead(302, { 'Location' : req.url + '/' });
+    res.writeHead(302, {
+      'Location': req.url + '/'
+    });
     res.end();
     return;
   }
@@ -139,14 +145,35 @@ app.get(/^\/client(\/.*)?$/, function(req, res, next) {
 //   };
 // });
 
-app.post('/pipeline', function(req, res ){
-  res.send({result: 'weaweraeiera'});
+app.post('/pipeline', function(req, res) {
+  console.log(req.body);
+  var scriptName = req.body.scriptToRun;
+  var piplineCommand = "./scripts/" + scriptName + " parameter one two";
+  shellPromises.execute(piplineCommand)
+    .then(function(results) {
+      console.log("Created web playable audio results: ");
+      console.log(results);
+
+      res.send({
+        result: 'finished ' + scriptName
+      });
+
+    })
+    .fail(function(reason) {
+      console.log("fail to run script", reason);
+      
+      res.send(499, {
+        error: reason
+      });
+
+    });
+
 });
 
-app.use(function(err, req, res, next){
+app.use(function(err, req, res, next) {
   res.send(err.status, err.message);
 });
 
 // Start the server on port 8002
 app.listen(port);
-console.log("Open your browser to localhost:"+port);
+console.log("Open your browser to localhost:" + port);
