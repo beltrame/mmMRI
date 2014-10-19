@@ -12,7 +12,7 @@ def getMask(dataFile, maskFile):
 
 def createMatrix(DataDir, maskFile):
 	matrix = {}
-	for dataType in ['*VBM_GM*_z.nii', '*DWI_FA*_z.nii', '*DWI_MD*_z.nii', '*DWI_S0*_z.nii', '*MTR*_z.nii']:
+	for dataType in ['*VBM_GM*_Z.nii.gz', '*DWI_FA*_Z.nii.gz', '*DWI_MD*_Z.nii.gz', '*DWI_S0*_Z.nii.gz', '*MTR*_Z.nii.gz']:
 		for imageFile in glob.glob(DataDir + dataType):
 			subjectID = imageFile.split('/')[-1][0:3]
 			if subjectID == "106": #Ignoring subject 106
@@ -26,7 +26,7 @@ if __name__ == "__main__":
 	if len(sys.argv)<2:
 		print "Usage: JasonStart.py <path to .nii.gz files> <mask file>"
 		sys.exit(0)
-	DataDir = sys.argv[1]
+	DataDir = sys.argv[1] + '/'
 	maskFile = sys.argv[2]
 
 	n_components = 24

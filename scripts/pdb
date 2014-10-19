@@ -1,8 +1,8 @@
 #!/bin/sh
 
-if [ $# -ne 1 ]; then
-	echo Usage: $0 myscript.py
+if [ $# -lt 1 ]; then
+	echo "Usage: $0 <myscript.py> <arguments>"
 	exit
 fi
 
-python -m pdb $1
+python -m pdb "$@"
