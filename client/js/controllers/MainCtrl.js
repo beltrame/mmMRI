@@ -566,22 +566,42 @@ angular.module('app')
         }];
 
         $scope.addPointToCurrentMouseMask = function(pick_info) {
-          $scope.mouseMasks[$scope.mouseMasks.length - 1].vector.push({
-            modelID: pick_info.object.model_name,
-            shapeID: pick_info.object.name,
-            nearestVertex: pick_info.index,
-            point: pick_info.point
-          });
-          console.log("last mask is ", $scope.mouseMasks[$scope.mouseMasks.length - 1]);
-          if (!$scope.$$phase) {
-            $scope.$digest(); //$digest or $apply
-          }
+            $scope.mouseMasks[$scope.mouseMasks.length - 1].vector.push({
+                modelID: pick_info.object.model_name,
+                shapeID: pick_info.object.name,
+                nearestVertex: pick_info.index,
+                point: pick_info.point
+            });
+            console.log("last mask is ", $scope.mouseMasks[$scope.mouseMasks.length - 1]);
+            if (!$scope.$$phase) {
+                $scope.$digest(); //$digest or $apply
+            }
         };
-        
+
+        $scope.scriptName = "pipeline.py";
+        $scope.apiURL = "http://localhost:8011";
+        // $scope.apiURL = "http://130.15.58.38:8011";
+        $scope.scriptResultsRaw = "No script has run";
         $scope.runScript = function(scriptname) {
             console.warn("security hole, this should not permit execution of unknown scripts.");
             scriptname = scriptname.trim().replace(/[\/\\]+/g, "");
             console.log("TODO call api to run this " + scriptname + "script on the data.");
+            $scope.scriptResultsRaw = "Running " + scriptname + "...";
+
+            CORS.makeCORSRequest({
+                url: $scope.apiURL + "/pipeline",
+                withCredentials: false,
+                data: {
+                    scriptToRun: $scope.scriptname,
+                    rawTextPreviousOutputPotentiallyModifiedOutputByUser: $scope.scriptResultsRaw,
+                    mouseMaskJson: $scope.mouseMasks[$scope.mouseMasks.length - 1]
+                },
+                method: "POST"
+            }).then(function(result) {
+                console.log("got a result", result);
+            }, function(error) {
+                console.log("got an error", error);
+            });
         };
 
         $scope.useLogScaleForBubbleSize = false;

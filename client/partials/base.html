@@ -6,7 +6,12 @@
             </li>
 
             <li class="breadcrumb">
-                <input placeholder="script name to run on the data" ng-model="scriptName" type="text"/><button class="btn btn-primary" ng-click="runScript(scriptName)">Run</button>
+                <form  ng-submit="runScript(scriptName)">
+                    <input placeholder="script name to run on the data" ng-model="scriptName" type="text"/>
+                    <input ng-model="apiURL" type="text"/>
+                    <button class="btn btn-primary" ng-click="runScript(scriptName)">Run</button>
+                </form>
+                <textarea ng-model="scriptResultsRaw"></textarea>
             </li>
 
             <li class="breadcrumb">
