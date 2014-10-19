@@ -149,7 +149,7 @@ app.post('/pipeline', function(req, res) {
   console.log(req.body);
   var scriptName = req.body.scriptToRun;
   if (!scriptName || !scriptName.trim) {
-    res.send(403, {
+    res.send(422, {
       error: "invalid scriptName"
     });
   }
@@ -168,9 +168,9 @@ app.post('/pipeline', function(req, res) {
 
     })
     .fail(function(reason) {
-      console.log("fail to run script", reason);
+      console.log("fail to run script. the out put was errors: ", reason);
 
-      res.send(499, {
+      res.send(500, {
         error: reason
       });
 
