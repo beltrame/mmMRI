@@ -4,8 +4,18 @@
             <li ng-repeat="dataTransformOrPipeline in dataTransformOrPipelines" class="breadcrumb" ng-class="{active: dataTransformOrPipeline == $parent.dataTransformOrPipeline}">
                 <a ng-click="selectBenchmark(dataTransformOrPipeline)">{{ dataTransformOrPipeline.name }}</a>
             </li>
+
             <li class="breadcrumb">
-                <a ng-click="$emit('openExperimentRunner')">Run New Experiment</a>
+                <table class="matrix">
+                    <tbody>
+                        <tr ng-repeat="row in matrix">
+                            <td ng-repeat="column in row track by $index" contenteditable>
+                                {{column}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
             </li>
         </ul>
     </div>
