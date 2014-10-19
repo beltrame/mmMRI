@@ -1,7 +1,9 @@
+#!/usr/bin/python
 
-import os
+import os,sys
 import numpy as np
 import nibabel as nb
+import glob
 
 # TODO: we have to figure out how to make modules
 import ImageReader
@@ -31,4 +33,17 @@ def zscoringNII(filename,sourcedir='../../brainimages'):
 
 # This is the standard way of checking if the file is being executed    
 if __name__ == "__main__":
-    zscoringNII('111_GS_VBM_GM_reg2STD.nii.gz')
+    if len(sys.argv)<2:
+        print "Usage: zscoring.py <path to .nii.gz files>"
+        sys.exit(0)
+    
+    # Counter
+    i = 0    
+    
+    for dataType in ['*VBM_GM*STD.nii.gz', '*DWI_FA*STD.nii.gz', '*DWI_MD*STD.nii.gz', '*DWI_S0*STD.nii.gz', '*MTR*brain.nii.gz']:
+        files = glob.glob(os.path.join(sys.argv[1],dataType))
+        print "Found "+dataType, len(files), "files\nProcessing..."
+        for imageFile in files:
+            zscoringNII(imageFile, sourcedir='')
+            sys.stdout.write("\r%d%%" % int((float(i)/len(files))*100))
+            sys.stdout.flush()
