@@ -1,9 +1,7 @@
 
 [See Video intro on how the code works for brain researchers](http://youtu.be/bFPaJDnqK1o)
 
-[![alt text](https://cloud.githubusercontent.com/assets/196199/4693669/4fbe7840-57a6-11e4-85fd-3fbb2c4953fb.png "Click to go to YouTube Screencast")](http://youtu.be/bFPaJDnqK1o)
-
-
+[![alt text](https://cloud.githubusercontent.com/assets/196199/4695378/fd5b10a4-57cd-11e4-85a9-8c83e5e81776.png "Click to go to YouTube Screencast")](http://youtu.be/bFPaJDnqK1o)
 
 url for running on your computer: http://localhost:8011/
 
