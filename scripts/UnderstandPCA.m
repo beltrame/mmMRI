@@ -6,11 +6,11 @@ X = randn(N,M); % random data
 
 Z = X*X'; % Create a covariance matrix of the data
 % But for this the means need to be removed from X, this is the
-% standardization part
+% standardization part (remove the mean)
 
 % Creation of this Z matrix is needed so that the following step is
 % tractable. The eigen decomposition is now done on a small matrix.
-[W S] = svd(Z); % perform singular value decomposition of the data;
+[W S] = svd(Z); % perform singular value decomposition of the data; Can also use eig(Z)
 % W are the eigen vectors and S are the squared eigenvalues
 
 % Plot the eigenvalues
