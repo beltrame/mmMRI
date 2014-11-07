@@ -11,7 +11,7 @@ import os
 import numpy as np
 from ImageReader import ImageReader
 import glob
-import logging
+import pandas as pd
 import pickle
 from sklearn.decomposition import PCA
 
@@ -34,7 +34,7 @@ subjects = {}
 
 # Collect all data in a nice dataset
 for dataType in [ x+suffix for x in ['*VBM_GM*_Z', '*DWI_FA*_Z', '*DWI_MD*_Z', '*DWI_S0*_Z', '*MTR*_Z']]:
-    print dataType
+    print dataTyped
     subject = 0
     modality=modality+1
     for imageFile in glob.glob(os.path.join(datadir,dataType)):
@@ -46,7 +46,9 @@ for dataType in [ x+suffix for x in ['*VBM_GM*_Z', '*DWI_FA*_Z', '*DWI_MD*_Z', '
         data_masked = reader.mask_image(imageFile, maskFile)
         dataset[subjects[subjectID],masksize*modality:masksize*modality+masksize]=data_masked.compressed()
 
-pickle.dump(dataset,open("dataset.pickle","wb"))
+dataframe = pd.DataFrame(data=dataset,index=subjects.keys())
+
+pickle.dump(dataframe,open("dataset.pickle","wb"))
 
 # Standardize the dataset
 sklearn.preprocessing.scale(dataset)

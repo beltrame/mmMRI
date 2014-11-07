@@ -38,7 +38,7 @@ if __name__ == "__main__":
         print "Usage: zscoring.py <path to .nii.gz files>"
         sys.exit(0)
       
-    for dataType in ['*VBM_GM*STD.nii.gz', '*DWI_FA*STD.nii.gz', '*DWI_MD*STD.nii.gz', '*DWI_S0*STD.nii.gz', '*MTR*brain.nii.gz']:
+    for dataType in [ x+'.nii' for x in ['*VBM_GM*STD', '*DWI_FA*STD', '*DWI_MD*STD', '*DWI_S0*STD', '*MTR*brain']]:
         files = glob.glob(os.path.join(sys.argv[1],dataType))
         print "\nFound "+dataType, len(files), "files\nProcessing..."
         # Counter

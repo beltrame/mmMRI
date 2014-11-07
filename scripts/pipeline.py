@@ -9,6 +9,16 @@ import sys, getopt
 import pickle
 import sklearn.preprocessing
 from sklearn.decomposition import PCA
+from matplotlib import pyplot
+from sklearn.cluster import KMeans
+
+def kmeans(data, n):
+    km=KMeans(init='k-means++', n_clusters=n, n_init=6)
+    km.fit(data)
+    idx = km.predict(data);
+    ctrs = km.cluster_centers_
+    return idx,ctrs
+
 
 def main(argv):
     maskfile = ''
@@ -27,7 +37,7 @@ def main(argv):
       elif opt in ("-c", "--components"):
          n_components = arg
     
-    dataset = pickle.load(open('/home/user03/data/dataset.pickle','rb'))
+    dataset = pickle.load(open('dataset.pickle','rb'))
 
     # PCA
     # Standardize the dataset
@@ -40,7 +50,10 @@ def main(argv):
     dataPCA = pca.transform(dataset)
 
     # LEARNING
-    print dataPCA
+    idx,ctrs = kmeans(dataPCA,2)
+    
+    idx=idx+1    
+    pyplot.bar(range(0,26,1),idx)
 
 if __name__ == "__main__":
    main(sys.argv[1:])

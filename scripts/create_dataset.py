@@ -5,44 +5,81 @@ Created on Fri Oct 17 23:27:31 2014
 @author: beltrame
 """
 
-import sys
 import os
 import numpy as np    # 
-import numpy.ma as ma # Masking arrays
-import nibabel
-#import sklearn
+import glob
+import pandas as pd
+from ImageReader import ImageReader
 
 # Source directory (where to get the .nii.gz files)
 sourcedir = 'brainimages'
 
-## Image loading
+# Some constants
+datadir = '../../brainimages'
+maskFile = '../../masks/submasks/harvox_heschls.nii.gz'
+suffix = '*_Z.nii.gz'
+n_components = 26
+
+# Convenience image reager
+reader = ImageReader('')
+
+# Use the mask to determine the dataset size
+masksize = reader.get_mask_size(maskFile)
+
+#%%
+## Create dataset multi-indexed structure
 #
-# Image file example
-# 111_GS_VBM_GM_reg2STD.nii.gz
-# 111_GS = subject, first 1 means non-musician, 2 means musician
-# VBM = modality {VBM_GM,DWI_FA,DWI_MD,DWI_S0,MTR}
-# _reg2STD all the same
-imagefile = '111_GS_VBM_GM_reg2STD.nii.gz'
+modes = [ 'VBM_GM', 'DWI_FA' , 'DWI_MD' , 'DWI_S0' , 'MTR', "T1" ]
 
-# Load an image and convert it to an array
-img = nibabel.load(os.path.join(sourcedir,imagefile))
-data = img.get_data()
+# Columns are the modalities
+columns = []
 
-## Masking 
+# Subcolumns are just an unravel of the mask index
+# TODO: make it the actual voxel coordinates
+subcolumns = [x for x in range(masksize)]*len(modes)
+
+# Create columns for all modalities
+for mode in modes:
+    columns = columns+ [mode]*masksize;
+
+arrays = [columns, subcolumns]
+tuples = list(zip(*arrays))
+
+cols = pd.MultiIndex.from_tuples(tuples, names=['Mode', 'Feature'])
+
+## Create subject names as index
 #
-# Load a mask just like every other image
-img = nibabel.load(os.path.join(sourcedir,imagefile))
-mask = img.get_data()
 
-# Applying a mask
+# Find all subject names
+idx = glob.glob(os.path.join(datadir,'*'+modes[0]+suffix))
+
+# Extract subject ID and convert to int
+idx = [ int(x.split('/')[-1][0:3]) for x in idx ]
+
+# Sort to avoid mixups
+idx.sort()
+
+## Instantiate dataframe
 #
-# Notice that the I have negate the mask because we actually want what's
-# in the mask
-masked_array = ma.array(data,mask=np.logical_not(mask))
+voxels = pd.DataFrame(np.zeros((26,masksize*len(modes))), columns=cols, index=idx)
 
-# Output 
-print masked_array.shape
-print 'Compressed array: \n', masked_array.compressed()
-print 'Compressed shape: \n', masked_array.compressed().shape
+#%% Collect all data in a nice dataset
+# For each MRI modality
+for mode in modes:
+    
+    print(mode)
+    if mode == 'T1':
+            suffix= '*STD.nii.gz'
+    fileglob = '*'+mode+suffix
+    for imageFile in glob.glob(os.path.join(datadir,fileglob)):
 
+        print("Reading: "+imageFile)
+        data_masked = reader.mask_image(imageFile, maskFile)
 
+        subjectID = int(imageFile.split('/')[-1][0:3])
+        print('Adding '+str(subjectID)+' '+mode )
+        voxels.loc[subjectID][mode] = data_masked.compressed()
+
+#%%  Covariates
+df = pd.io.parsers.read_csv('../../covariates/covariates.csv', index_col=0,header=[0,1])
+dataframe = pd.concat((voxels, df), axis=1)

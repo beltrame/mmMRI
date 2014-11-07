@@ -34,6 +34,14 @@ class ImageReader:
         
         return img
     
+    def get_shape(self,imagefile):
+        img = self.get_image(imagefile)
+        return img.shape
+    
+    def get_mask_size(self,maskfile):
+        img = self.get_image(maskfile)
+        return np.count_nonzero(img)
+    
     def mask_image(self,imagefile, maskfile):
         """ 
             Masks an image using the specified nii file
@@ -65,8 +73,8 @@ if __name__ == "__main__":
     data = i.get_image('111_GS_VBM_GM_reg2STD.nii.gz')
      
     mask = i.mask_image('111_GS_VBM_GM_reg2STD.nii.gz','../masks/auditorynetwork_mask.nii.gz')
-    print np.count_nonzero(mask.compressed())
+    print(np.count_nonzero(mask.compressed()))
     
     mask = i.mask_image('111_GS_VBM_GM_reg2STD.nii.gz','../masks/submasks/harvox_heschls.nii.gz')
-    print np.count_nonzero(mask.compressed())
+    print(np.count_nonzero(mask.compressed()))
     
