@@ -10,5 +10,9 @@
     "grunt-contrib-watch": "~0.5.1",
     "grunt-ngmin": "0.0.3",
     "grunt-contrib-less": "~0.7.0"
+  },
+  "scripts": {
+    "build": "grunt",
+    "postinstall": "npx bower install"
   }
 }

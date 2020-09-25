@@ -184,4 +184,4 @@ app.use(function(err, req, res, next) {
 
 // Start the server on port 8002
 app.listen(port);
-console.log("Open your browser to localhost:" + port);
+console.log("Open your browser to http://localhost:" + port);
