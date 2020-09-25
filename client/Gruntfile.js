@@ -75,7 +75,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('minify', ['concat', 'ngmin', 'uglify']);
 
-    grunt.registerTask('default', [ 'concat', 'ngmin', 'uglify']);
+    grunt.registerTask('default', [ 'concat', 'ngmin', 'uglify', 'appendSrcTags']);
 
     grunt.registerMultiTask('appendSrcTags', 'outputs a js file that `document.write` your files', function () {
         var _ = grunt.util._;

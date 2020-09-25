@@ -13,6 +13,7 @@
   },
   "scripts": {
     "build": "grunt",
-    "postinstall": "npx bower install"
+    "postinstall": "npx bower install && grunt",
+    "unzip:brainbrowser": "cd bower_components/brainbrowser/examples/color-maps; ls;  gunzip -d *.gz ; ls; cd ../models; gunzip -d *.gz ; ls;"
   }
 }
