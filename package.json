@@ -5,7 +5,7 @@
   "private": true,
   "dependencies": {
     "cors": "2.4.2",
-    "express": "3.x",
+    "express": "4.x",
     "q": "1.0.1",
     "swagger-node-express": "git://github.com/cesine/swagger-node-express.git#934754c478f31741971ab8358a1d8d87bdf204c3"
   },
